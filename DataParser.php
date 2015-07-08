@@ -78,5 +78,20 @@ namespace AutoRu\Parse {
             }
             return $data;
         }
+
+        /**
+         * Парсит все страницы $browser->pages[]
+         * @param array $pages
+         * @return array
+         */
+        public function parsePages($pages)
+        {
+            $data = array();
+            foreach ($pages as $page) {
+                $this->setContent($page);
+                $data = array_merge($data, $this->getData());
+            }
+            return $data;
+        }
     }
 }

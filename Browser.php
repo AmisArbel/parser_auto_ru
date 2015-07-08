@@ -1,11 +1,10 @@
 <?php
 namespace AutoRu\Browser {
     require_once("PangParser.php");
-    require_once("DataParser.php");
     use AutoRu\Parse\PangParser;
     use AutoRu\Parse\DataParser;
     /**
-     * Класс для загрузки все страниц по автомобилю
+     * Класс для загрузки всех страниц по автомобилю
      * @property string link
      */
     class Browser
@@ -40,6 +39,7 @@ namespace AutoRu\Browser {
         /**
          * Сохраняет страницы в массив $this->pages[]
          *
+         * @return array
          */
         public function getPages()
         {
@@ -53,20 +53,7 @@ namespace AutoRu\Browser {
                 print "$this->link?_p=$i&_l=10".PHP_EOL;
                 $this->pages[] = $this->getPage("$this->link?_p=$i&_l=10");
             }
-        }
-
-        /**
-         * Парсит все страницы $this->pages[]
-         */
-        public function parsePages()
-        {
-            $dataParser = new DataParser();
-            $data = array();
-            foreach ($this->pages as $page) {
-                $dataParser->setContent($page);
-                $data = array_merge($data, $dataParser->getData());
-            }
-            return $data;
+            return $this->pages;
         }
     }
 }
